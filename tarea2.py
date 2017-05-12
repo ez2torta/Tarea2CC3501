@@ -31,7 +31,7 @@ pentagon = CenteredFigure([(0,-1), (-1,0), (-1,1), (1,1), (1,0)], center_square,
                         color=COLOR_WHITE)
 hexagon = CenteredFigure([(-1, 0), (-1/2.0, -sqrt(3.0/2.0)), (1/2.0, -sqrt(3.0/2.0)), (1,0), (1/2.0, sqrt(3.0/2.0)), (-1/2.0, sqrt(3.0/2.0))], center_square,
                         color=COLOR_WHITE)
-square = hexagon
+# square = hexagon
 triangle = CenteredFigure([(0, 6), (-1, 5), (1, 5)], center_square, color=COLOR_RED)
 # Create pygame window
 surface = pygame.display.set_mode((640, 480))
@@ -45,6 +45,7 @@ square.set_surface(surface)
 triangle.set_surface(surface)
 
 # Scale figures
+# oroginalmente el square tiene scale 50
 square.scale(50)
 triangle.scale(15)
 
@@ -69,6 +70,9 @@ while True:
     # Rotate figures
     square.rotate(1)
 
+    # Check for Choques
+    if square.collide(triangle):
+        print ("Choque!")
     # Draw figures
     square.draw()
     triangle.draw()
