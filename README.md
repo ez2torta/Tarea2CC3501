@@ -1,5 +1,5 @@
 # Super Hexagon Bootleg
-## based on CenteredFigure class (Pablo Pizarro, 2017) and PyGame.
+(based on CenteredFigure class (Pablo Pizarro, 2017) and PyGame)
 
 
 ## Installation:
@@ -9,6 +9,7 @@
 ### For Python 2.7:
 
 pip install -r requirements.txt
+
 python tarea2.py
 
 ### Python 3.x:
