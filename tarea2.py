@@ -35,7 +35,7 @@ hexagon = CenteredFigure([(-1, 0), (-1/2.0, -sqrt(3.0/2.0)), (1/2.0, -sqrt(3.0/2
 triangle = CenteredFigure([(0, 6), (-1, 5), (1, 5)], center_square, color=COLOR_RED)
 # Create pygame window
 surface = pygame.display.set_mode((640, 480))
-pygame.display.set_caption('SuperHexagon (Bootleg, 170512)')
+pygame.display.set_caption('SuperHexagon (170512, Bootleg)')
 
 # Create pygame timer
 clock = pygame.time.Clock()
