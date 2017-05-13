@@ -1,58 +1,49 @@
 # Imports
+from centered_figure import CenteredFigure
 from math import cos, sin, pi
-from shapely.geometry import Polygon
 import pygame
 
 class Background(object):
-	def __init__(self, points, center, color=(255, 255, 255), width=0,
-	             pygame_surface=None):
-	    """
-	    Create centered figure from point list with center (x,y).
+	# self.arreglo=[]
+	# self.colors = [(153,0,76), (255,153,153), (255,51,255)]
 
-	    :param points: Clockwise vertices tuple list (ex. [(10,10),(10,5), ...])
-	    :type points: list
-	    :param center: Center list (ex [10, 10])
-	    :type center: list
-	    :param color: Tuple color
-	    :type color: tuple
-	    :param width: Border width (px)
-	    :param pygame_surface: Pygame surface object
-	    :type pygame_surface: pygame.display
-	    """
-	    assert self._assert_center(center), 'Center must be a list'
-	    assert isinstance(color, tuple), 'Color must be a tuple'
-	    assert self._assert_vertices(
-	        points), 'Vertices must be a list of tuples'
-	    self._points = points
-	    self._center = center
-	    self._color = color
-	    self._width = width
-	    self._surface = pygame_surface
+	def __init__(self, aristas):
+		self.aristas = aristas
+		self.arreglo=[]
+		self.colors = [(0, 102, 0), (0, 204, 0), (0, 255, 0)]
+		self.create()
 
-	@staticmethod
-	def _assert_center(center):
-	    """
-	    Check if center variable is correct.
-	    
-	    :param center: Center list
-	    :return: Boolean
-	    """
-	    if isinstance(center, list):
-	        if len(center) == 2:
-	            return True
-	    return False
+	def rotate(self,angle):
+		for x in self.arreglo:
+			x.rotate(angle)
 
-	@staticmethod
-	def _assert_vertices(vertices):
-	    """
-	    Check if vertices list only contain tuples
-	    
-	    :param vertices: Vertices list
-	    :return: 
-	    """
-	    if isinstance(vertices, list):
-	        for v in vertices:
-	            if not isinstance(v, tuple):
-	                return False
-	        return True
-	    return False
+	def scale(self,scale):
+		for x in self.arreglo:
+			x.scale(scale)
+
+	def draw(self):
+		for x in self.arreglo:
+			x.draw()
+
+	def create(self):
+		for x in xrange(self.aristas):
+			center_square = [320, 240]
+			color = None
+			trianguloBG = None
+			if self.aristas < 5:
+				color = self.colors[x%2]
+				trianguloBG = CenteredFigure([(0, 0), (-5, 5), (-5,-5)], center_square,
+				                        color=color)
+			elif self.aristas == 5:
+				color = self.colors[x%3]
+				trianguloBG = CenteredFigure([(0, 0), (0, 5), (-5*sin(72 * pi / 180.0),5*cos(72 * pi / 180.0))], center_square,
+				                        color=color)
+
+			trianguloBG.rotate((x*(360/self.aristas))%360)
+
+			self.arreglo.append(trianguloBG)
+		
+
+	def set_surface(self, surface):
+		for x in self.arreglo:
+			x.set_surface(surface)
