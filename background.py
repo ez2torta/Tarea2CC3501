@@ -30,19 +30,19 @@ class Background(object):
 			center_square = [320, 240]
 			color = None
 			trianguloBG = None
+			angle = (360.0/self.aristas) * pi / 180.0
 			if self.aristas < 5:
 				color = self.colors[x%2]
-				trianguloBG = CenteredFigure([(0, 0), (-5, 5), (-5,-5)], center_square,
-				                        color=color)
-			elif self.aristas == 5:
+			elif self.aristas >= 5:
 				color = self.colors[x%3]
-				trianguloBG = CenteredFigure([(0, 0), (0, 5), (-5*sin(72 * pi / 180.0),5*cos(72 * pi / 180.0))], center_square,
-				                        color=color)
 
+			trianguloBG = CenteredFigure([(0, 0), (0, 10), (10*sin(angle),10*cos(angle))], center_square,
+				                        color=color)
 			trianguloBG.rotate((x*(360/self.aristas))%360)
 
 			self.arreglo.append(trianguloBG)
 		
+
 
 	def set_surface(self, surface):
 		for x in self.arreglo:
