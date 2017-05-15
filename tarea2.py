@@ -20,14 +20,15 @@ from random import randint
 
 
 ABOUT = ['PygameMenu {0}'.format(pygameMenu.__version__),
-         'Author: Paulo Sandoval www.tortita.net',
+         'Author: Paulo Sandoval github @ez2torta',
          TEXT_NEWLINE,
          'Email: paulojsandoval@ing.uchile.cl']
 
 HELP = ['Press ESC to enable/disable Menu',
         'Press ENTER to access a Sub-Menu or use an option',
         'Press UP/DOWN to move through Menu',
-        'Press LEFT/RIGHT to move through Selectors']
+        'Press LEFT/RIGHT in game to move your cursor',
+        'Press R ingame to restart current level']
 
 # Colors
 COLOR_BLACK = (0, 0, 0)
@@ -120,9 +121,9 @@ def main(speed):
         # Ver teclas presionadas
         keys=pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            cursor.rotate(3*speed)
+            cursor.rotate(3*abs(speed))
         if keys[pygame.K_RIGHT]:
-            cursor.rotate(-3*speed)
+            cursor.rotate(-3*abs(speed))
 
         # Fill surface
         surface.fill(COLOR_BLACK)
@@ -130,8 +131,13 @@ def main(speed):
         cambio_segundo = 0 if int(timer[0])-timer_anterior == 0 else 1
         timer_anterior = int(timer[0])
         # print(clock.get_time())
-        if cambio_segundo == 1 and timer_anterior % int(2 * 3/speed) == 0:
+
+
+        if cambio_segundo == 1 and timer_anterior % 2 == 0:
             ataques.append(crear_ataque(aristas, surface))
+
+        if cambio_segundo == 1 and timer_anterior % (6/speed) == 0:
+            speed = -speed
 
         # Rotar Items
         central.rotate(1*speed)
@@ -143,7 +149,7 @@ def main(speed):
         # avanzar ataques
         for ataque in ataques:
             ataque.rotate(1*speed)
-            ataque.scale(0.99) 
+            ataque.scale(0.99 - abs(speed)/100) 
             if ataque.collide(cursor):
                 run = False           
             ataque.draw()
@@ -191,9 +197,6 @@ def change_color_bg(c, **kwargs):
     COLOR_BACKGROUND[0] = c[0]
     COLOR_BACKGROUND[1] = c[1]
     COLOR_BACKGROUND[2] = c[2]
-
-
-
 
 
 # Adds a selector (element that can handle functions)
