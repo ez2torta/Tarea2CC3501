@@ -77,7 +77,7 @@ def jugar_hard():
 def crear_ataque(aristas, surface):
     ataque = Attack(aristas)
     ataque.set_surface(surface)
-    ataque.scale(70)
+    ataque.scale(50)
     return ataque
 
 def main(speed):
