@@ -43,7 +43,7 @@ class Background(object):
 			self.arreglo.append(trianguloBG)
 		
 
-
 	def set_surface(self, surface):
 		for x in self.arreglo:
 			x.set_surface(surface)
+
