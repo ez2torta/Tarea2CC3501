@@ -116,50 +116,57 @@ def main(speed):
                     run = False
                 elif event.key == K_r:
                     run = False
-
                     main(speed)
-        # Ver teclas presionadas
-        keys=pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            cursor.rotate(3*abs(speed))
-        if keys[pygame.K_RIGHT]:
-            cursor.rotate(-3*abs(speed))
+        if int(timer[0]) >= 60*abs(speed):
+            # Ganaste
+            time_string = "You Win!"
+            time_blit = timer_font.render(time_string, 1, COLOR_BLACK)
+            time_blit_size = time_blit.get_size()
+            surface.blit(time_blit, (
+                W_SIZE / 2 - time_blit_size[0] / 2, H_SIZE / 2 - time_blit_size[1] / 2))
+        else:
+            # Ver teclas presionadas
+            keys=pygame.key.get_pressed()
+            if keys[pygame.K_LEFT]:
+                cursor.rotate(3*abs(speed))
+            if keys[pygame.K_RIGHT]:
+                cursor.rotate(-3*abs(speed))
 
-        # Fill surface
-        surface.fill(COLOR_BLACK)
-        
-        cambio_segundo = 0 if int(timer[0])-timer_anterior == 0 else 1
-        timer_anterior = int(timer[0])
-        # print(clock.get_time())
+            # Fill surface
+            surface.fill(COLOR_BLACK)
+            
+            cambio_segundo = 0 if int(timer[0])-timer_anterior == 0 else 1
+            timer_anterior = int(timer[0])
+            # print(clock.get_time())
 
 
-        if cambio_segundo == 1 and timer_anterior % 2 == 0:
-            ataques.append(crear_ataque(aristas, surface))
+            if cambio_segundo == 1 and timer_anterior % 2 == 0:
+                ataques.append(crear_ataque(aristas, surface))
 
-        if cambio_segundo == 1 and timer_anterior % (6/speed) == 0:
-            speed = -speed
+            if cambio_segundo == 1 and timer_anterior % (6/speed) == 0:
+                speed = -speed
 
-        # Rotar Items
-        central.rotate(1*speed)
-        background.rotate(1*speed)
+            # Rotar Items
+            central.rotate(1*speed)
+            background.rotate(1*speed)
 
-        # Draw
-        background.draw()
-        cursor.draw()
-        # avanzar ataques
-        for ataque in ataques:
-            ataque.rotate(1*speed)
-            ataque.scale(0.99 - abs(speed)/100) 
-            if ataque.collide(cursor):
-                run = False           
-            ataque.draw()
+            # Draw
+            background.draw()
+            cursor.draw()
+            # avanzar ataques
+            for ataque in ataques:
+                ataque.rotate(1*speed)
+                ataque.scale(0.99 - abs(speed)/100) 
+                if ataque.collide(cursor):
+                    run = False           
+                ataque.draw()
 
-        central.draw()
+            central.draw()
 
-        time_string = str(datetime.timedelta(seconds=int(timer[0])))
-        time_blit = timer_font.render(time_string, 1, COLOR_WHITE)
-        time_blit_size = time_blit.get_size()
-        surface.blit(time_blit, (0, 0))
+            time_string = str(datetime.timedelta(seconds=int(timer[0])))
+            time_blit = timer_font.render(time_string, 1, COLOR_WHITE)
+            time_blit_size = time_blit.get_size()
+            surface.blit(time_blit, (0, 0))
 
         # Flip display
         pygame.display.flip()

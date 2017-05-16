@@ -8,8 +8,11 @@
 
 ### For Python 2.7:
 
+#### Install requirements
 pip install -r requirements.txt
 
+
+#### Run Game
 python tarea2.py
 
 ### Python 3.x:
@@ -22,7 +25,11 @@ Not tested nor supported.
 Select Difficulty, then use Left and Right Arrow Keys on the Keyboard to escape from falling blocks going to \
 the centered figure.
 
-Centered Figure can be Square, Pentagon and Hexagon.
+ESC key for going back to the Menu
+
+R key to restart current level (restarts timer keeping speed)
+
+Centered Figure can be Square, Pentagon and Hexagon, chose random at start of the game.
 
 ## License
 This project is licensed under GPLv3 (GNU General Public License, version 3) [https://www.gnu.org/licenses/gpl-3.0.html].
